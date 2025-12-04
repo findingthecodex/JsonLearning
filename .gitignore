@@ -1,0 +1,34 @@
+# C# build output
+[Bb]in/
+[Oo]bj/
+
+# Rider
+.idea/
+*.sln.DotSettings.user
+
+# User-specific files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Visual Studio
+.vs/
+
+# Mac
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Other
+*.swp
+*~
+*.bak
+*.tmp
+*.log
+
