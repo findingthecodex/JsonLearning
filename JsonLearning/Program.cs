@@ -8,6 +8,7 @@ var service = new CustomerService();
 while (true)
 {
     Console.WriteLine("1 = List | 2. Add | 3. Edit | 4. Delete | 5.Customer-By-City | 6. List-Students | 7. List-Grades | 8. Student-Grades | 0. Exit ");
+    Console.WriteLine(" ");
     var input = Console.ReadLine();
     switch (input)
     {

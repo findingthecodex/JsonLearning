@@ -47,12 +47,11 @@ public class StudentService
             .OrderBy(x => x.StudentId)
             .ToListAsync();
         
-        Console.WriteLine("StudentId | FirstName | LastName | Grade | AverageGrade");
+        Console.WriteLine("StudentId | FullName8 | AverageGrade");
         foreach (var grade in gradesummary)
         {
             Console.WriteLine($"{grade.StudentId} | {grade.FullName} | {grade.GradeAverage}");
         }
-        
-        
+        Console.WriteLine(" ");
     }
 }
