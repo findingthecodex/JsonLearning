@@ -24,6 +24,14 @@ public class CustomerService
         var json = await File.ReadAllTextAsync(Filename);
         var customers = JsonSerializer.Deserialize<List<Customer>>(json, _options);
         
+        // NYTT decrypt ----->
+        foreach (var customer in customers)
+        {
+            if (!string.IsNullOrEmpty(customer.CustomerEmail))
+            {
+                customer.CustomerEmail = EncryptionHelper.Decrypt(customer.CustomerEmail);
+            }
+        }
         // Säker fallback om JSON är tom eller felaktig
         return customers ?? new List<Customer>();
     }
@@ -31,7 +39,19 @@ public class CustomerService
     // Spara listan till JSON filen
     private async Task SaveAsync(List<Customer> customers)
     {
-        var json = JsonSerializer.Serialize(customers, _options);
+        // Nytt kryptering
+        var toSave = customers.Select(customer => new Customer
+        {
+            CustomerId = customer.CustomerId,
+            CustomerName = customer.CustomerName,
+            City = customer.City,
+            CustomerEmail = string.IsNullOrEmpty(customer.CustomerEmail)
+                ? customer.CustomerEmail
+                : EncryptionHelper.Encrypt(customer.CustomerEmail),
+            CustomerPhoneNumber = customer.CustomerPhoneNumber
+        }).ToList();
+        
+        var json = JsonSerializer.Serialize(toSave, _options);
         await File.WriteAllTextAsync(Filename, json);
     }
 
@@ -200,9 +220,7 @@ public class CustomerService
         Console.WriteLine("Id | Name | Email | City | PhoneNumber");
         foreach (var customer in filteredCustomers)
         {
-            Console.WriteLine($"{customer.CustomerId} | {customer.CustomerName} | {customer.CustomerEmail} | {customer.City}  | {customer.CustomerPhoneNumber}");
+            Console.WriteLine($"{customer.CustomerId} | {customer.CustomerName} | {customer.CustomerEmail} | {customer.City} | {customer.CustomerPhoneNumber}");
         }
     }
 }
-
-

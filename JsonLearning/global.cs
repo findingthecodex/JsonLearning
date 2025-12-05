@@ -4,3 +4,8 @@ global using System.IO;
 global using System.Text.Json;
 global using System.Text.Json.Serialization;
 global using JsonLearning.Models;
+global using System.Threading.Tasks;
+global using Microsoft.Extensions.Configuration;
+global using Microsoft.Extensions.DependencyInjection;
+global using Microsoft.Extensions.Options;
+using Microsoft.EntityFrameworkCore;
